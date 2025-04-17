@@ -1,0 +1,144 @@
+#!/bin/bash
+#
+# Script to unset all New Relic Java Agent environment variables
+# Usage: source unset_newrelic_java_env_vars.sh
+#
+
+echo "Unsetting New Relic Java Agent environment variables..."
+
+# Function to unset variables with a common prefix
+unset_vars_with_prefix() {
+  local prefix=$1
+  for var in $(env | grep "^$prefix" | cut -d= -f1); do
+    unset "$var"
+    echo "Unset $var"
+  done
+}
+
+# Core Configuration
+unset NEW_RELIC_LICENSE_KEY
+unset NEW_RELIC_APP_NAME
+unset NEW_RELIC_AGENT_ENABLED
+unset NEW_RELIC_ENABLE_LOGGING
+unset NEW_RELIC_CONFIG_FILE
+unset NEW_RELIC_LOG_LEVEL
+
+# Distributed Tracing & Span Events
+unset NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
+unset NEW_RELIC_SPAN_EVENTS_ENABLED
+
+# Transaction Events and Analytics
+unset NEW_RELIC_TRANSACTION_EVENTS_ENABLED
+unset NEW_RELIC_TRANSACTION_EVENTS_MAX_SAMPLES_STORED
+unset NEW_RELIC_TRANSACTION_EVENTS_ATTRIBUTES_ENABLED
+unset NEW_RELIC_TRANSACTION_EVENTS_ATTRIBUTES_INCLUDE
+unset NEW_RELIC_TRANSACTION_EVENTS_ATTRIBUTES_EXCLUDE
+unset NEW_RELIC_CUSTOM_EVENTS_ENABLED
+unset NEW_RELIC_EVENT_REPORT_PERIOD
+
+# Proxy Configuration
+unset NEW_RELIC_PROXY_HOST
+unset NEW_RELIC_PROXY_PORT
+unset NEW_RELIC_PROXY_USER
+unset NEW_RELIC_PROXY_PASS
+unset NEW_RELIC_PROXY_SCHEME
+
+# Logging Configuration
+unset NEW_RELIC_LOG
+unset NEW_RELIC_LOG_FILE_NAME
+unset NEW_RELIC_LOG_FILE_PATH
+unset NEW_RELIC_LOG_TO_STDOUT
+unset NEW_RELIC_LOG_FILE_COUNT
+unset NEW_RELIC_LOG_MAX_FILE_SIZE_MB
+
+# Application Logging
+unset NEW_RELIC_APPLICATION_LOGGING_ENABLED
+unset NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED
+unset NEW_RELIC_APPLICATION_LOGGING_METRICS_ENABLED
+unset NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED
+unset NEW_RELIC_APPLICATION_LOGGING_FORWARDING_LOG_LEVEL
+unset NEW_RELIC_APPLICATION_LOGGING_METRICS_LOG_LEVEL
+
+# JMX and Custom Instrumentation
+unset NEW_RELIC_JMX_ENABLED
+unset NEW_RELIC_CUSTOM_INSTRUMENTATION_PATH
+
+# JVM System Properties
+unset JAVA_OPTS
+unset JAVA_TOOL_OPTIONS
+
+# Container & Process Metadata
+unset NEW_RELIC_CONTAINER_METADATA_ENABLED
+unset NEW_RELIC_PROCESS_HOST_DISPLAY_NAME
+unset NEW_RELIC_UTILIZATION_DETECT_AWS
+unset NEW_RELIC_UTILIZATION_DETECT_DOCKER
+unset NEW_RELIC_UTILIZATION_DETECT_KUBERNETES
+
+# Error Collection
+unset NEW_RELIC_ERROR_COLLECTOR_ENABLED
+
+# Transaction Tracing
+unset NEW_RELIC_TRANSACTION_TRACER_ENABLED
+unset NEW_RELIC_TRANSACTION_TRACER_THRESHOLD
+unset NEW_RELIC_TRANSACTION_TRACER_RECORD_SQL
+
+# SQL/Database Tracing
+unset NEW_RELIC_SLOW_SQL_ENABLED
+unset NEW_RELIC_RECORD_SQL
+
+# High Security Mode & Security
+unset NEW_RELIC_HIGH_SECURITY
+unset NEW_RELIC_SECURITY_POLICIES_TOKEN
+unset NEW_RELIC_SSL_CA_BUNDLE
+unset NEW_RELIC_SSL_VERIFY_PEER
+unset NEW_RELIC_TLS_VERSION
+
+# Labels / Metadata
+unset NEW_RELIC_LABELS
+unset NEW_RELIC_HOST_DISPLAY_NAME
+
+# Code-Level Metrics
+unset NEW_RELIC_CODE_LEVEL_METRICS_ENABLED
+
+# Infinite Tracing
+unset NEW_RELIC_INFINITE_TRACING_TRACE_OBSERVER_HOST
+unset NEW_RELIC_INFINITE_TRACING_TRACE_OBSERVER_PORT
+unset NEW_RELIC_INFINITE_TRACING_SPAN_EVENTS_QUEUE_SIZE
+
+# Insights / Events API
+unset NEW_RELIC_INSIGHTS_INSERT_KEY
+unset NEW_RELIC_INSIGHTS_URL
+
+# Attributes
+unset NEW_RELIC_CAPTURE_PARAMS
+unset NEW_RELIC_ATTRIBUTES_INCLUDE
+unset NEW_RELIC_ATTRIBUTES_EXCLUDE
+
+# Cross Application Tracing (CAT) - Legacy
+unset NEW_RELIC_CROSS_APPLICATION_TRACER_ENABLED
+unset NEW_RELIC_CROSS_PROCESS_ID
+unset NEW_RELIC_TRUSTED_ACCOUNT_IDS
+unset NEW_RELIC_ENCODING_KEY
+unset NEW_RELIC_ENABLE_CROSS_APPLICATION_TRACER
+unset NEW_RELIC_ACCOUNT_ID
+unset NEW_RELIC_CAT_DISABLED
+unset NEW_RELIC_CAT_FOOTER_DATA
+unset NEW_RELIC_OBFUSCATED_ID
+unset NEW_RELIC_NONCE
+unset NEW_RELIC_ALTERNATIVE_PATH_HASHING
+
+# Metadata/Custom (Java agent-relevant)
+unset NEW_RELIC_APDEX_T
+unset NEW_RELIC_ENABLE_AUTO_APP_NAMING
+unset NEW_RELIC_APP_GROUP
+unset NEW_RELIC_USE_SQUID_NAMES
+
+# Custom catch-all for any unset NEW_RELIC_* and NEWRELIC_*
+echo "Checking for any additional NEW_RELIC_ variables..."
+unset_vars_with_prefix "NEW_RELIC_"
+
+echo "Checking for any additional NEWRELIC_ variables..."
+unset_vars_with_prefix "NEWRELIC_"
+
+echo "All New Relic Java Agent environment variables have been unset."
+echo "Remember to restart your JVM application for these changes to take effect."
